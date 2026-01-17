@@ -52,3 +52,26 @@ body {
   padding: 1.5rem 1rem;
   color: #666;
 }
+
+.cv {
+  list-style: none;
+  padding-left: 0;
+}
+
+.cv li {
+  display: grid;
+  grid-template-columns: 14em 1fr;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.cv .year {
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.cv .org {
+  color: #111827;
+}
+
