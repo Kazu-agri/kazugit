@@ -100,3 +100,22 @@ body {
   font-size: 0.9em;
   color: #6b7280;
 }
+
+/* ===== スマホ表示最適化 ===== */
+@media (max-width: 640px) {
+
+  .cv li {
+    grid-template-columns: 1fr;   /* 1列にする */
+    gap: 0.25rem;
+  }
+
+  .cv .year {
+    font-size: 0.95rem;
+    color: #374151;
+  }
+
+  .cv .org {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
