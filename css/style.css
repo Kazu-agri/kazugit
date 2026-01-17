@@ -27,6 +27,7 @@ body {
   color: #fff;
   text-decoration: none;
   opacity: 0.9;
+  padding: 0.25rem 0.1rem; /* ④ タップ性UP */
 }
 
 .nav a:hover {
@@ -65,7 +66,7 @@ body {
   border-radius: 14px;
   padding: 1.25rem;
   margin-bottom: 1.25rem;
-  box-shadow: none; /* 影は控えめ（ガチャガチャ感を減らす） */
+  box-shadow: none;
 }
 
 /* Card variants */
@@ -113,6 +114,7 @@ body {
 .sub {
   margin-top: 0.25rem;
   font-size: 0.9em;
+  line-height: 1.5; /* ② 詰めて読みやすく */
   color: #6b7280;
 }
 
@@ -137,6 +139,10 @@ body {
     margin: 1.25rem auto;
   }
 
+  .card {
+    margin-bottom: 1rem; /* ③ カード間余白を少し詰める */
+  }
+
   .cv li {
     grid-template-columns: 1fr;
     gap: 0.25rem;
@@ -145,14 +151,11 @@ body {
   .cv .year {
     white-space: normal;
     font-size: 0.95rem;
+    font-weight: 700;     /* ① 年を少し強調 */
+    color: #1f2937;       /* ① 少し濃く */
   }
 
   .cv .org {
     line-height: 1.6;
-  }
-
-  /* ナビが詰まる場合にタップしやすく */
-  .nav a {
-    padding: 0.15rem 0;
   }
 }
