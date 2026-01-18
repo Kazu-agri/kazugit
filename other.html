@@ -1,102 +1,172 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>その他 | Kazuki KONDO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>その他｜こんどうかずきの部屋</title>
+  <meta name="description" content="が研究で使用するモデル、解析環境、データ／ライブラリのリンク集。" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- OGP minimum -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="その他｜こんどうかずきの部屋" />
+  <meta property="og:description" content="研究で使用するモデル、解析環境、データ／ライブラリのリンク集。" />
+  <meta property="og:locale" content="ja_JP" />
 </head>
+
 <body>
+  <nav class="nav" aria-label="サイト内ナビゲーション">
+    <a href="index.html">メイン</a>
+    <a href="cv.html">経歴</a>
+    <a href="publications.html">業績</a>
+    <a href="notes/">ブログ風</a>
+    <a href="other.html" aria-current="page">その他</a>
+  </nav>
 
-<nav class="nav">
-  <a href="index.html">メイン</a>
-  <a href="cv.html">経歴</a>
-  <a href="publications.html">業績</a>
-  <a href="notes/">ブログ風</a>
-  <a href="other.html">その他</a>
-</nav>
+  <header class="header">
+    <h1>その他</h1>
+    <p>研究で使用している解析モデル、解析環境、データ／ライブラリ等のリンク集です。</p>
+  </header>
 
-<main class="container">
-  <h1>その他</h1>
-
-  <!-- 研究ツール（全部まとめ） -->
-  <section class="card">
-    <h2>研究ツール</h2>
-    <p class="sub">
-      研究で使用している解析モデル、解析環境、データ／ライブラリ等のリンク集です。
+  <main class="container">
+    <p class="sub" style="margin-top: 0.75rem;">
+      <a href="index.html">Home</a> / その他
     </p>
 
-    <h3>解析モデル</h3>
-    <ul class="simple">
-      <li>
-        <a href="https://www.nrcs.usda.gov/resources/tech-tools/water-erosion-prediction-project"
-           target="_blank" rel="noopener">
-          WEPP (Water Erosion Prediction Project)
-        </a>
-        — 土壌侵食予測モデル
-      </li>
-    </ul>
+    <!-- Overview -->
+    <section class="card">
+      <h2 class="h2-tight">研究ツール</h2>
+      <p class="sub">
+        公開情報・公式ドキュメントを中心にまとめています。リンク切れ等があれば適宜更新します。
+      </p>
+    </section>
 
-    <h3>解析環境</h3>
-    <ul class="simple">
-      <li>
-        <a href="https://jupyter.org/"
-           target="_blank" rel="noopener">
-          Jupyter Notebook / JupyterLab
-        </a>
-        — 解析・可視化環境
-      </li>
-      <li>
-        <a href="https://docs.conda.io/en/latest/miniconda.html"
-           target="_blank" rel="noopener">
-          Miniconda
-        </a>
-        — Python 実行環境・パッケージ管理
-      </li>
-    </ul>
+    <!-- Models -->
+    <section class="card">
+      <h2 class="h2-tight">解析モデル</h2>
+      <ul class="simple">
+        <li>
+          <a
+            href="https://www.nrcs.usda.gov/resources/tech-tools/water-erosion-prediction-project"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            WEPP (Water Erosion Prediction Project)
+          </a>
+          — 土壌侵食予測モデル
+        </li>
+      </ul>
+    </section>
 
-    <h3>使用データ・ライブラリ</h3>
-    <ul class="simple">
-      <li>
-        <a href="https://www.miroc-gcm.jp/d4PDF/"
-           target="_blank" rel="noopener">
-          d4PDF
-        </a>
-        — 大規模アンサンブル気候データ
-      </li>
-      <li>
-        <a href="https://search.diasjp.net/ja/dataset/MLIT_XRAIN"
-           target="_blank" rel="noopener">
-          XRAIN
-        </a>
-        — 国交省XバンドMPレーダーの観測データ
-      </li>
-      <li>
-        <a href="https://github.com/YuukiWada/PyXRAIN"
-           target="_blank" rel="noopener">
-          PyXRAIN
-        </a>
-        — XRAINデータ処理用 Python ライブラリ
-      </li>
-      <li>
-        <a href="https://github.com/ltelab/disdrodb"
-           target="_blank" rel="noopener">
-          disdrodb
-        </a>
-        — 雨滴粒径分布データベース・解析ライブラリ
-      </li>
-      <li>
-        <a href="https://arm-doe.github.io/pyart/"
-           target="_blank" rel="noopener">
-          Py-ART
-        </a>
-        — 気象レーダーデータ解析ライブラリ
-      </li>
-    </ul>
-  </section>
+    <!-- Environments -->
+    <section class="card">
+      <h2 class="h2-tight">解析環境</h2>
+      <ul class="simple">
+        <li>
+          <a
+            href="https://jupyter.org/"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            Jupyter Notebook / JupyterLab
+          </a>
+          — 解析・可視化環境
+        </li>
+        <li>
+          <a
+            href="https://docs.conda.io/en/latest/miniconda.html"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            Miniconda
+          </a>
+          — Python 実行環境・パッケージ管理
+        </li>
+      </ul>
+    </section>
 
-</main>
+    <!-- Data & Libraries -->
+    <section class="card">
+      <h2 class="h2-tight">使用データ・ライブラリ</h2>
+      <ul class="simple">
+        <li>
+          <a
+            href="https://www.miroc-gcm.jp/d4PDF/"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            d4PDF
+          </a>
+          — 大規模アンサンブル気候データ
+        </li>
 
-<footer class="footer">© 2026</footer>
+        <li>
+          <a
+            href="https://search.diasjp.net/ja/dataset/MLIT_XRAIN"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            XRAIN
+          </a>
+          — 国交省 XバンドMPレーダーの観測データ
+        </li>
+
+        <li>
+          <a
+            href="https://github.com/YuukiWada/PyXRAIN"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            PyXRAIN
+          </a>
+          — XRAINデータ処理用 Python ライブラリ
+        </li>
+
+        <li>
+          <a
+            href="https://github.com/ltelab/disdrodb"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            disdrodb
+          </a>
+          — 雨滴粒径分布データベース・解析ライブラリ
+        </li>
+
+        <li>
+          <a
+            href="https://arm-doe.github.io/pyart/"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+          >
+            Py-ART
+          </a>
+          — 気象レーダーデータ解析ライブラリ
+        </li>
+      </ul>
+    </section>
+
+    <!-- Optional future section -->
+    <!--
+    <section class="card">
+      <h2 class="h2-tight">計算環境メモ</h2>
+      <ul class="simple">
+        <li>OS / Python / Conda env などを簡単に記録する欄（必要になったら追加）</li>
+      </ul>
+    </section>
+    -->
+  </main>
+
+  <footer class="footer">© 2026</footer>
 </body>
 </html>
