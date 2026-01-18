@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>WEPPの解説｜ブログ風｜こんどうかずきの部屋</title>
+  <meta name="description" content="WEPPの解説をしてみようの巻" />
+
+  <!-- OGP minimum -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="WEPPの解説" />
+  <meta property="og:description" content="WEPPの解説記事を書き始めました" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+  <nav class="nav" aria-label="サイト内ナビゲーション">
+    <a href="../index.html">メイン</a>
+    <a href="../cv.html">経歴</a>
+    <a href="../publications.html">業績</a>
+    <a href="./">ブログ風</a>
+    <a href="../other.html">その他</a>
+  </nav>
+
+  <main class="container">
+    <!-- breadcrumb -->
+    <p class="sub" style="margin: 0.75rem 0 0.25rem 0;">
+      <a href="../index.html">Home</a> / <a href="./">ブログ風</a> / WEPPの解説
+    </p>
+
+    <header style="margin-bottom: 0.75rem;">
+      <h1 style="margin-bottom: 0.25rem;">WEPPの解説</h1>
+      <p class="sub" style="margin: 0;">
+        公開日：2026-01-18
+        <span style="margin: 0 0.35rem;">/</span>
+        最終更新：2026-01-18
+        <span style="margin: 0 0.35rem;">/</span>
+        タグ：<a href="./?tag=website">website</a>, <a href="./?tag=log">log</a>
+      </p>
+    </header>
+
+    <section class="card">
+      <p>
+       サイト開設2日目。今日は共通テストの2日目というわけで昨日に引き続き大学には入れず、研究関連の資料は手元になかったので、WEPPの解説記事でも書いてみようかと思い立ちました。
+      </p>
+
+      <p>
+        自分が学部生で研究室に入ったころ、WEPPの使い方は先人たちの卒論や修論を見ながら学ぶといった感じでやっていた気がします。インストールやダウンロードの方法はよくわからなかったような...。
+        <br>ということで、完全初心者向けに（ソフトのダウンロードすらしたことない人でもわかるくらいの細かさで）ダウンロードから解析可能な環境ができるまでの部分を解説してみました。
+      </p>
+
+      <p>
+        研究室に配属された当時はWEPPの最新版は2012年リリースのものでしたが、昨年修論を執筆する途中で新たなバージョンがリリースされました。2024年版のWEPPはいろいろと刷新されていて、新しい感じがします。
+        <br>リリースから1年以上たったので、今後の解析はこちらに移行したいと考えているところですが、同じ入力データファイルを用いても出力が若干異なるので扱いが難しいところです。
+        <br>博論以降の解析では2024年版を使っていこうと思います。（要約：変わったのはUIだけではなかったようです。）
+      </p>
+
+      <p>
+        ひとまず新しく入ってくる新4年生の人たち向けに簡単な解析ができる程度の解説書、また将来的に自分が学生を指導する立場になった時にもそのまま使えるくらいの内容を目指してすこしずつ書いていこうと思います。
+        現在M1の後輩はこのWEPPを外部プログラムによって大幅な省力化を目指した研究を行っているので、そちらに関しても無事論文化されたときには紹介できればなと思います。それでは。
+      </p>
+    </section>
+
+    <!-- nav: prev/next -->
+    <section class="card card-tight">
+      <h2 class="h2-tight">記事ナビ</h2>
+      <ul class="simple">
+        <li>← 前の記事：<span class="sub">（準備中）</span></li>
+        <li>次の記事 →：<span class="sub">（準備中）</span></li>
+        <li>一覧に戻る：<a href="./">ブログ風トップ</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="footer">© 2026</footer>
+
+  <script>
+  const postsBox = document.getElementById("posts");
+  const tagsBox = document.getElementById("tags");
+  const searchInput = document.getElementById("search");
+  const statusBox = document.getElementById("status");
+
+  let ALL_POSTS = [];
+  let ACTIVE_TAG = null;
+
+  function toTime(dateStr) {
+    const t = Date.parse(dateStr);
+    return Number.isFinite(t) ? t : 0;
+  }
+
+  function safeText(v) {
+    return (v === null || v === undefined) ? "" : String(v);
+  }
+
+  function normalizeUrl(url) {
+    return safeText(url).replace(/^notes\//, "");
+  }
+
+  function getYear(dateStr) {
+    const m = safeText(dateStr).match(/^(\d{4})/);
+    return m ? m[1] : "Unknown";
+  }
+
+  function collectTags(posts) {
+    const s = new Set();
+    posts.forEach(p => (p.tags || []).forEach(t => s.add(t)));
+    return Array.from(s).sort((a,b) => a.localeCompare(b, "ja"));
+  }
+
+  function renderTags(allTags) {
+    tagsBox.innerHTML = "";
+
+    function chip(label, tagValue) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.style.border = "1px solid #e5e7eb";
+      b.style.background = (ACTIVE_TAG === tagValue) ? "#111827" : "#fff";
+      b.style.color = (ACTIVE_TAG === tagValue) ? "#fff" : "#111827";
+      b.style.borderRadius = "999px";
+      b.style.padding = "0.35rem 0.7rem";
+      b.style.cursor = "pointer";
+      b.style.fontSize = "0.9rem";
+
+      b.addEventListener("click", () => {
+        ACTIVE_TAG = (ACTIVE_TAG === tagValue) ? null : tagValue;
+        renderTags(allTags);
+        render();
+        // URL を書き換え（履歴を汚さない）
+        const u = new URL(window.location);
+        if (ACTIVE_TAG) u.searchParams.set("tag", ACTIVE_TAG);
+        else u.searchParams.delete("tag");
+        history.replaceState(null, "", u);
+      });
+
+      return b;
+    }
+
+    tagsBox.appendChild(chip("すべて", null));
+    allTags.forEach(t => tagsBox.appendChild(chip(t, t)));
+  }
+
+  function filterPosts(posts) {
+    const key = safeText(searchInput.value).trim().toLowerCase();
+
+    return posts.filter(p => {
+      const title = safeText(p.title).toLowerCase();
+      const excerpt = safeText(p.excerpt).toLowerCase();
+      const tags = (p.tags || []).map(x => safeText(x).toLowerCase()).join(" ");
+
+      const hitKeyword = !key || (title + " " + excerpt + " " + tags).includes(key);
+      const hitTag = !ACTIVE_TAG || (p.tags || []).includes(ACTIVE_TAG);
+
+      return hitKeyword && hitTag;
+    });
+  }
+
+  function postItem(p) {
+    const article = document.createElement("article");
+    article.className = "post-item";
+
+    const h3 = document.createElement("h3");
+    h3.className = "post-title";
+
+    const a = document.createElement("a");
+    a.href = normalizeUrl(p.url);
+    a.textContent = safeText(p.title) || "(no title)";
+    h3.appendChild(a);
+
+    const meta = document.createElement("p");
+    meta.className = "sub";
+    const tagText = (p.tags && p.tags.length) ? " / " + p.tags.join(", ") : "";
+    meta.textContent = safeText(p.date) + tagText;
+
+    article.appendChild(h3);
+    article.appendChild(meta);
+
+    if (p.excerpt) {
+      const ex = document.createElement("p");
+      ex.className = "post-excerpt";
+      ex.textContent = safeText(p.excerpt);
+      article.appendChild(ex);
+    }
+
+    return article;
+  }
+
+  function render() {
+    const filtered = filterPosts(ALL_POSTS);
+
+    const key = safeText(searchInput.value).trim();
+    const tagInfo = ACTIVE_TAG ? ` / tag: ${ACTIVE_TAG}` : "";
+    statusBox.textContent =
+      `全 ${ALL_POSTS.length} 件` +
+      (filtered.length !== ALL_POSTS.length ? ` → 表示 ${filtered.length} 件` : "") +
+      (key ? ` / 検索: "${key}"` : "") +
+      tagInfo;
+
+    postsBox.innerHTML = "";
+
+    if (filtered.length === 0) {
+      const p = document.createElement("p");
+      p.className = "sub";
+      p.textContent = "該当する記事がありません。";
+      postsBox.appendChild(p);
+      return;
+    }
+
+    let currentYear = null;
+    filtered.forEach(p => {
+      const y = getYear(p.date);
+      if (y !== currentYear) {
+        currentYear = y;
+        const h = document.createElement("h2");
+        h.textContent = currentYear;
+        h.style.marginTop = "1.25rem";
+        postsBox.appendChild(h);
+      }
+      postsBox.appendChild(postItem(p));
+    });
+  }
+
+  (async () => {
+    try {
+      const res = await fetch("./posts.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("posts.json not found");
+
+      const posts = await res.json();
+      if (!Array.isArray(posts)) throw new Error("posts.json format invalid");
+
+      posts.forEach(p => {
+        if (!p.tags) p.tags = [];
+        p.url = normalizeUrl(p.url);
+      });
+      posts.sort((a, b) => toTime(b.date) - toTime(a.date));
+      ALL_POSTS = posts;
+
+      // ★ ここが追加：URLの ?tag= を読む
+      const params = new URLSearchParams(window.location.search);
+      const initialTag = params.get("tag");
+      if (initialTag) ACTIVE_TAG = initialTag;
+
+      const allTags = collectTags(ALL_POSTS);
+      renderTags(allTags);
+      render();
+
+      searchInput.addEventListener("input", render);
+
+    } catch (e) {
+      postsBox.innerHTML = "";
+      tagsBox.innerHTML = "";
+      statusBox.textContent = "";
+      const p = document.createElement("p");
+      p.className = "sub";
+      p.textContent = "読み込みに失敗しました（/notes/posts.json を確認してください）。";
+      postsBox.appendChild(p);
+    }
+  })();
+</script>
+
+</body>
+</html>
