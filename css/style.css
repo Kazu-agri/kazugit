@@ -313,6 +313,10 @@ h2 { margin: 1.25rem 0 0.6rem 0; }
 }
 
 .notes-year{ margin-top: 1.25rem; }
+.post-header { margin-bottom: 0.75rem; }
+.post-h1 { margin-bottom: 0.25rem; }
+.post-meta { margin: 0; }
+.sep { margin: 0 0.35rem; }
 
 /* =========================
    Responsive (mobile)
