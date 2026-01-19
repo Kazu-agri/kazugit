@@ -1,0 +1,27 @@
+<section class="card card-tight">
+  <h2 class="h2-tight">シリーズナビ</h2>
+  <ul class="simple">
+    <li>
+      ← 前：
+      {% if page.wepp_prev_url %}
+        <a href="{{ page.wepp_prev_url | relative_url }}">{{ page.wepp_prev_title | default: "前のページ" }}</a>
+      {% else %}
+        <span class="sub">（なし）</span>
+      {% endif %}
+    </li>
+
+    <li>
+      次 →：
+      {% if page.wepp_next_url %}
+        <a href="{{ page.wepp_next_url | relative_url }}">{{ page.wepp_next_title | default: "次のページ" }}</a>
+      {% else %}
+        <span class="sub">（なし）</span>
+      {% endif %}
+    </li>
+
+    <li>
+      目次：
+      <a href="{{ '/WEPP/' | relative_url }}">WEPPの使い方トップ</a>
+    </li>
+  </ul>
+</section>
