@@ -1,0 +1,129 @@
+---
+layout: default
+title: "こんどうかずきの部屋"
+description: "近藤航樹（こんどうかずき）の個人サイト。東京農工大学大学院連合農学研究科の博士学生。土壌侵食に関する研究に取り組んでいます。"
+og_title: "こんどうかずきの部屋"
+og_description: "近藤航樹（こんどうかずき）の個人サイト。東京農工大学大学院連合農学研究科の博士学生。土壌侵食に関する研究に取り組んでいます。"
+header_lead: |
+  近藤航樹（こんどうかずき）です。
+  東京農工大学大学院連合農学研究科の博士学生です。
+  主に土壌侵食の研究をしています。
+---
+
+<section class="card">
+  <h2>研究紹介</h2>
+
+  <p>
+    私の研究では、土壌侵食解析モデル
+    <strong>WEPP (Water Erosion Prediction Project)</strong>
+    を用いて、降雨特性や気候変動が土壌侵食に与える影響を評価しています。
+  </p>
+
+  <p>
+    特に、
+    <strong>雨滴の運動エネルギー</strong>や
+    <strong>気候変動に伴う降水現象の将来変化</strong>に着目し、
+    日本全国の観測データや将来気候データを組み合わせた解析手法の構築に取り組んでいます。
+  </p>
+
+  <p>
+    農業工学という学問の枠にとらわれず、気象学や気候科学などの知見も生かした
+    <strong>学際的な研究</strong>に挑戦しています。
+  </p>
+
+  <p class="sub">
+    使用モデルはこちら：
+    <a
+      href="https://www.ars.usda.gov/midwest-area/west-lafayette-in/national-soil-erosion-research/docs/wepp/"
+      target="_blank"
+      rel="noopener"
+      referrerpolicy="no-referrer"
+    >
+      WEPP (USDA-ARS)
+    </a>
+  </p>
+
+  <p class="sub">
+    ※その他の解析環境・データ・ライブラリについては
+    <a href="{{ '/other.html' | relative_url }}">その他</a>
+    のページにまとめています。
+  </p>
+</section>
+
+<section class="card">
+  <h2>最新の投稿（ブログ風）</h2>
+  <div id="latest-posts">
+    <p class="sub">読み込み中…</p>
+  </div>
+  <noscript>
+    <p class="sub">
+      JavaScriptが無効のため、最新記事を表示できません。
+      <a href="{{ '/notes/' | relative_url }}">ブログ風</a>からご覧ください。
+    </p>
+  </noscript>
+</section>
+
+<script>
+  function createPostItem(p) {
+    const article = document.createElement("article");
+    article.className = "post-item";
+
+    const h3 = document.createElement("h3");
+    h3.className = "post-title";
+
+    const a = document.createElement("a");
+    a.href = p.url;
+    a.textContent = p.title || "(no title)";
+    h3.appendChild(a);
+
+    const meta = document.createElement("p");
+    meta.className = "sub";
+    meta.textContent = p.date || "";
+
+    article.appendChild(h3);
+    article.appendChild(meta);
+
+    if (p.excerpt) {
+      const ex = document.createElement("p");
+      ex.className = "post-excerpt";
+      ex.textContent = p.excerpt;
+      article.appendChild(ex);
+    }
+    return article;
+  }
+
+  function toTime(dateStr) {
+    const t = Date.parse(dateStr);
+    return Number.isFinite(t) ? t : 0;
+  }
+
+  (async () => {
+    const box = document.getElementById("latest-posts");
+    try {
+      const res = await fetch("{{ '/notes/posts.json' | relative_url }}", { cache: "no-store" });
+      if (!res.ok) throw new Error("posts.json not found");
+
+      const posts = await res.json();
+      if (!Array.isArray(posts)) throw new Error("posts.json format invalid");
+
+      posts.sort((a, b) => toTime(b.date) - toTime(a.date));
+      const latest = posts.slice(0, 3);
+
+      box.innerHTML = "";
+      if (latest.length === 0) {
+        const p = document.createElement("p");
+        p.className = "sub";
+        p.textContent = "まだ記事がありません。";
+        box.appendChild(p);
+        return;
+      }
+      latest.forEach(p => box.appendChild(createPostItem(p)));
+    } catch (e) {
+      box.innerHTML = "";
+      const p = document.createElement("p");
+      p.className = "sub";
+      p.textContent = "最新記事の読み込みに失敗しました（posts.json を確認してください）。";
+      box.appendChild(p);
+    }
+  })();
+</script>
