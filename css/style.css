@@ -281,7 +281,9 @@ h2 { margin: 1.25rem 0 0.6rem 0; }
 .figcaption {
   margin-top: 0.4rem;
 }
-
+.breadcrumb { margin-top: 0.75rem; }
+.h2-space { margin-top: 1rem; }
+.note { margin-top: 0.6rem; }
 /* =========================
    Responsive (mobile)
 ========================= */
