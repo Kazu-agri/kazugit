@@ -341,6 +341,29 @@ h2 { margin: 1.25rem 0 0.6rem 0; }
 
   .cv .org { line-height: 1.6; }
 
+   /* Image link card */
+.card-link-image {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.card-link-image:hover img {
+  opacity: 0.92;
+}
+
+.card-link-caption {
+  line-height: 1.4;
+}
+
+
   /* mobile nav tends to become taller if it wraps */
   :root {
     --nav-line: 1.4rem;
